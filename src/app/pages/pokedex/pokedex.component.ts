@@ -4,15 +4,12 @@ import { ApiService } from 'src/app/services/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PokemonStatsComponent } from 'src/app/components/pokemon-stats/pokemon-stats.component';
 import { MatPaginator } from '@angular/material/paginator';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import Fuse from 'fuse.js';
-
-import { trigger, state, style, transition, animate } from '@angular/animations';
-
-
-import { environment } from 'src/environments/environment';
-
 import OpenAI from "openai";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-pokedex',
@@ -53,6 +50,7 @@ export class PokedexComponent implements OnInit {
   pokemonImages: any = [];
   storedPokemon: any = [];
   storedPokemonByType: any = [];
+  storedPokemonByAI: any = [];
   filteredPokemonList: any = [];
   
   currentPage: any = 0;
@@ -63,6 +61,7 @@ export class PokedexComponent implements OnInit {
   previous: any = '';
   selectedType: any = 'all';
   keyWord: any = '';
+  advanceKeyWord: any = '';
 
   firstLoad: boolean = true;
   loading: boolean = false;
@@ -70,23 +69,14 @@ export class PokedexComponent implements OnInit {
   constructor( 
     private router: Router,
     private api: ApiService,
+    private _snackBar: MatSnackBar,
     public dialog: MatDialog
    ) { }
 
   ngOnInit(): void {
     this.loadAllPokemons();
     this.loadPokemonTypeList();
-    // this.AItest();
   }
-
-  // async AItest() {
-  //   let openai = new OpenAI({ apiKey: environment.openAI_APIKEY, dangerouslyAllowBrowser: true });
-  //   const chatCompletion = await openai.chat.completions.create({
-  //     model: "gpt-3.5-turbo",
-  //     messages: [{"role": "user", "content": "Write a one-sentence bedtime story about a unicorn."}],
-  //   });
-  //   console.log(chatCompletion.choices[0].message);
-  // }
 
   loadAllPokemons() {
     this.loading = true;
@@ -173,7 +163,8 @@ export class PokedexComponent implements OnInit {
         "name",
       ]
     };
-    const lists = this.selectedType == 'all' ? this.storedPokemon.flat(1) : this.storedPokemonByType.flat(1);
+    // blank type means that the advance search is triggered
+    const lists = this.selectedType != '' ? ( this.selectedType == 'all' ? this.storedPokemon.flat(1) : this.storedPokemonByType.flat(1) ) : this.storedPokemonByAI.flat(1);
     const fuse = new Fuse(lists, options)
     let newList = [];
     newList = this.keyWord ? fuse.search(this.keyWord).map((data: any) => {
@@ -194,6 +185,88 @@ export class PokedexComponent implements OnInit {
     this.currentPage = 0; // reset page
     this.totalPage = newList.length;
     this.pokemonList = this.allPokemon[this.currentPage];
+  }
+
+  async advanceSearch() {
+    if( this.loading || !this.advanceKeyWord ) return;
+    this.loading = true;
+    const openai = new OpenAI({
+      apiKey: environment.OPENAPI_KEY,
+      dangerouslyAllowBrowser: true
+    });
+    await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [{"role": "user", "content": `Provide me a JSON text of pokemon name only with the key name of 'pokemon' that is ${this.advanceKeyWord} no other text`}],
+    }).then((response)=>{
+      let result = response.choices[0].message.content || '';
+      let arrayedResult: any = {}; // store the split result
+      let jsonResultRaw: any = ''; // store json string result
+      let jsonResultClean: any = {}; // store the clean result
+  
+      // check if json exist
+      if( result.includes('json') && result.includes('```') ) {
+        arrayedResult = result.split('```');
+        arrayedResult.map((r:any)=>{
+          if( r.includes('json') ) {
+            jsonResultRaw = r;
+          }
+        });
+  
+        // remove extra strings
+        jsonResultClean = jsonResultRaw.split("\n").join('').replace('json','');
+        jsonResultClean = JSON.parse(jsonResultClean);
+  
+        // check if pokemon exist
+        if( jsonResultClean['pokemon'] ) {
+          this.selectedType = ''; // clear type dropdown, this can be used to view again all the pokemons
+          this.currentPage = 0; // reset current page
+          let list: any = []; // used to store pokemon from json result
+          let newPokemonList: any = []; // this will be the final result
+          let pokemonOriginalList = this.storedPokemon.flat(1); // get all pokemons
+  
+          // check if result has more than one result
+          if( Array.isArray(jsonResultClean['pokemon']) ) {
+            // making sure that the pokemon names are in lowercase to match it in "All pokemon list"
+            jsonResultClean['pokemon'].map((pokemon:any)=>{
+              if( pokemon ) list.push(pokemon.toLowerCase())
+            })
+          } else {
+            list.push(jsonResultClean['pokemon'].toLowerCase())
+          }
+          jsonResultClean = list;
+  
+          // search if the pokemon exist in our "All pokemon list"
+          pokemonOriginalList.map((pokemon:any)=>{
+            if( jsonResultClean.includes(pokemon['name']) ) {
+              newPokemonList.push(pokemon);
+            }
+          })
+  
+          // display the new pokemon list
+          this.allPokemon = []; // reset the value
+          let page = 0;
+          for (let i = 0; i < newPokemonList.length; i += this.limit) {
+              const chunk = newPokemonList.slice(i, i + this.limit);
+              this.allPokemon[page] = chunk;
+              page++;
+          }
+          this.storedPokemonByAI = JSON.parse(JSON.stringify(this.allPokemon));
+          this.totalPage = newPokemonList.length; // set total page
+          this.pokemonList = this.allPokemon[this.currentPage].map((data:any)=>{
+            this.loadPokemonDetails( data );
+            return data;
+          });
+        } else {
+          this.openSnackBar('No result found!');
+        }
+      } else {
+        this.openSnackBar('No result found!');
+      }
+    }).catch((error)=>{
+      this.openSnackBar('Advance search is not available!');
+    }).finally(()=>{
+      this.loading = false;
+    });
   }
 
   triggerPaginate(e:any) {
@@ -232,6 +305,14 @@ export class PokedexComponent implements OnInit {
         stats: this.pokemonStats[name],
         type: this.pokemonType[name]
       },
+    });
+  }
+
+  openSnackBar(msg:any) {
+    this._snackBar.open(msg, 'close', {
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      duration: 3000
     });
   }
 

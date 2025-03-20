@@ -5,11 +5,23 @@ img { height: 160px; image-rendering: pixelated; }
 .p-20px { padding: 50px; }
 .pt-20px { padding-top: 20px }
 .mt-20px { margin-top: 20px; }
+.mt-10px { margin-top: 10px; }
 .btn-type { width: 100%; color: white; }
 .text-center { text-align: center; }
+.text-white { color: white; }
 .pokemon-card{ cursor: pointer; }
 .card-container { padding: 24px; }
 .pokemon-card:hover { box-shadow: 0px 0px 10px 5px lightgray; }
+.bg1 { background-color: #283048; }
+
+.search-button { box-shadow: none; }
+.search-icon:hover {
+    color: #DB3232;
+}
+.search-container { 
+    padding: 0 20px 0 20px;
+    margin-top: 20px;
+}
 
 .loader {
     width: 500px;
@@ -29,6 +41,8 @@ img { height: 160px; image-rendering: pixelated; }
 .close-btn {
     background: #DF4D4D;
     color: white;
+    margin-top: 20px;
+    margin-right: 20px;
 }
 .close-btn:hover { background: #DB3232 }
 

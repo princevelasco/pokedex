@@ -17,6 +17,17 @@
         <tr><td colspan="2">&nbsp;</td></tr>
         <tr><td colspan="2"><mat-divider></mat-divider></td></tr>
         <tr *ngFor="let s of data.stats">
+            <!-- <td colspan="2">
+                {{ s['stat']['name'] }}
+                <section class="example-section">
+                    <mat-progress-bar
+                        class="example-margin"
+                        [value]="s['base_stat']"
+                        [bufferValue]="75">
+                    </mat-progress-bar>
+                    <div style="position: absolute; padding: 10px; color: white;">{{ s['base_stat'] }}</div>
+                </section>
+            </td> -->
             <td>{{ s['stat']['name'] }}</td>
             <td>{{ s['base_stat'] }}</td>
         </tr>

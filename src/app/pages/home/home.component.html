@@ -1,0 +1,19 @@
+<mat-grid-list [cols]="column" [rowHeight]="row" (window:resize)="onResize($event)">
+  <mat-grid-tile
+    [colspan]="2"
+    [rowspan]="1"
+    [style.color]="'white'">
+      <div class="w-full pl-5p">
+          <h1 class="author">Aldon Prince S. Velasco</h1>
+          <br>
+          <h1 class="pokedex">Pokedex Project</h1> 
+          <button type="button" (click)="openPokedex()" mat-raised-button>Open Pokedex</button>
+      </div>
+  </mat-grid-tile>
+  <mat-grid-tile
+    [colspan]="1"
+    [rowspan]="1"
+    [style.color]="'black'">
+      <img class="starting-pokemon" src="../assets/starting-pokemon.png">
+  </mat-grid-tile>
+</mat-grid-list>

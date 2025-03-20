@@ -1,0 +1,33 @@
+.pl-5p { padding: 5%; }
+.author { font-size: 40px; }
+.w-full { width: 100% !important; }
+
+.starting-pokemon {
+    width: 400px;
+    height: 400px;
+}
+
+// sample device iphone 14
+@media screen and (max-width: 767px) and (min-width: 300px) {
+    .starting-pokemon {
+        width: 150px;
+        height: 150px;
+    }
+    .author {
+        font-size: 30px;
+    }
+}
+
+// sample device samsung A24
+@media screen and (max-width: 300px) {
+    .starting-pokemon {
+        width: 100px;
+        height: 100px;
+    }
+    .author {
+        font-size: 20px;
+    }
+    .pokedex {
+        font-size: 15px;
+    }
+}

@@ -1,0 +1,29 @@
+<div>
+    <table>
+        <tr><td colspan="2" class="text-center">{{ data.name }}</td></tr>
+        <tr><td colspan="2"><mat-divider></mat-divider></td></tr>
+        <tr>
+            <td colspan="2"><img class="poke-image" [src]="data.image"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <mat-grid-list cols="{{ data.type.length == '1' ? '1' : '2' }}" rowHeight="30px">
+                    <mat-grid-tile *ngFor="let t of data.type">
+                        <button class="text-white {{ t.type['name'] }}" type="button" mat-raised-button>{{ t.type['name'] }}</button>
+                    </mat-grid-tile>
+                  </mat-grid-list>
+            </td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr><td colspan="2"><mat-divider></mat-divider></td></tr>
+        <tr *ngFor="let s of data.stats">
+            <td>{{ s['stat']['name'] }}</td>
+            <td>{{ s['base_stat'] }}</td>
+        </tr>
+        <tr><td colspan="2"><mat-divider></mat-divider></td></tr>
+        <tr>
+            <td>Total</td>
+            <td>{{ total }}</td>
+        </tr>
+    </table>
+</div>

@@ -10,8 +10,8 @@
 </mat-grid-list>
 
 <div *ngIf="!firstLoad">
-    <mat-card appearance="outlined">
-        <mat-card-header class="bg1">
+    <mat-card class="no-bs bg-secondary" appearance="outlined">
+        <mat-card-header class="bg-primary">
             <div class="w-full pt-20px">
                 <mat-card-title class="text-white">Pokedex</mat-card-title>
                 <mat-card-subtitle class="text-white">pokemons</mat-card-subtitle>
@@ -64,32 +64,22 @@
                                 </mat-form-field>
                             </div>
                         </mat-grid-tile>
-                        <!-- <mat-grid-tile
-                            [colspan]="1"
-                            [rowspan]="1">
-                            <div class="w-full">
-                                <button type="button" mat-raised-button>
-                                    Search
-                                </button>
-                            </div>
-                        </mat-grid-tile> -->
                     </mat-grid-list>
                 </mat-tab>
             </mat-tab-group>
         </div>
 
         <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-        <div class="w-full"><mat-divider></mat-divider></div>
 
-        <div class="card-container responsive-grid" *ngIf="pokemonList">
-            <mat-card *ngFor="let pl of pokemonList" class="pokemon-card" (click)="checkStats(pl.name)">
+        <div class="card-container bg-primary responsive-grid" *ngIf="pokemonList">
+            <mat-card *ngFor="let pl of pokemonList" class="{{ pokemonType[pl.name] ? (pokemonType[pl.name][0]['type']['name']+'-card') : '' }} pokemon-card" (click)="checkStats(pl.name)">
                 <p class="text-center">{{ pl.name }}</p>
                 <br/>
                 <div class="w-full img-container">
                     <img *ngIf="!imgStatus[pl.name]" mat-card-image src="assets/pokeball.png">
                     <img [@showImage]="!imgStatus[pl.name] ? 'closed' : 'open'" *ngIf="pokemonImages[pl.name]" [hidden]="!imgStatus[pl.name]" mat-card-image [src]="pokemonImages[pl.name]" (load)="imgLoaded(pl.name)">
                 </div>
-                <mat-card-content >
+                <mat-card-content style="min-height: 84px;">
                     <p  class="" *ngFor="let t of pokemonType[pl.name]">
                         <button class="btn-type {{ t.type['name'] }}" type="button" mat-raised-button>{{ t.type['name'] }}</button>
                     </p>

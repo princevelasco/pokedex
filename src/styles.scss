@@ -1,41 +1,96 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
+$primary: #283048;
+$secondary: #859398;
+
+// $primary: #61045F;
+// $secondary: #AA076B;
+
 html { height: 100%; }
 body { 
     height: 100%;
     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
-    background-image: url('assets/bg.png');
-    background-repeat: no-repeat;
-    background-size: cover; // 100% 100%;
-    background-position: center;
+    background: $secondary;
+    // background-image: url('assets/bg.png');
+    // background-repeat: no-repeat;
+    // background-size: cover; // 100% 100%;
+    // background-position: center;
+}
+.bg-primary {
+    background: $primary;
+}
+.bg-secondary {
+    background: $secondary;
 }
 
 .mat-progress-spinner circle, .mat-spinner circle {
-    stroke: white;
+    stroke: $primary;
 }
 
 .mat-progress-bar-fill::after {
     background-color: #DF4D4D;
 }
 
+.all { background-color: $primary; }
+.all-card { background: linear-gradient(to top, white 60%, $primary); }
+
 .normal { background-color: #9FA19F; }
+.normal-card { background: linear-gradient(to top, white 60%, #9FA19F); }
+
 .grass { background-color: #47AB57; }
+.grass-card { background: linear-gradient(to top, white 60%, #47AB57); }
+
 .fire { background-color: #FD7D24; }
+.fire-card { background: linear-gradient(to top, white 60%, #FD7D24); }
+
 .water, .ice { background-color: #4592C4; }
+.water-card, .ice-card { background: linear-gradient(to top, white 60%, #4592C4); }
+
 .bug { background-color: #719F3F; }
+.bug-card { background: linear-gradient(to top, white 60%, #719F3F); }
+
 .electric { background-color: #EED535; }
+.electric-card { background: linear-gradient(to top, white 60%, #EED535); }
+
 .rock { background-color: #A38C21; }
+.rock-card { background: linear-gradient(to top, white 60%, #A38C21); }
+
 .ghost { background-color: #7B62A3; }
+.ghost-card { background: linear-gradient(to top, white 60%, #7B62A3); }
+
 .poison { background-color: #B97FC9; }
+.poison-card { background: linear-gradient(to top, white 60%, #B97FC9); }
+
 .psychic { background-color: #F366B9; }
+.psychic-card { background: linear-gradient(to top, white 60%, #F366B9); }
+
 .fighting { background-color: #D56723; }
+.fighting-card { background: linear-gradient(to top, white 60%, #D56723); }
+
 .ground { background-color: #AB9842; }
+.ground-card { background: linear-gradient(to top, white 60%, #AB9842); }
+
 .dragon { background-color: #F06D56; }
+.dragon-card { background: linear-gradient(to top, white 60%, #F06D56); }
+
 .flying { background-color: #81B9EF; }
+.flying-card { background: linear-gradient(to top, white 60%, #81B9EF); }
+
 .steel { background-color: #B7B7CE; }
+.steel-card { background: linear-gradient(to top, white 60%, #B7B7CE); }
+
 .dark { background-color: #705746; }
+.dark-card { background: linear-gradient(to top, white 60%, #705746); }
+
 .fairy { background-color: #D685AD; }
+.fairy-card { background: linear-gradient(to top, white 60%, #D685AD); }
+
 .shadow { background-color: #181e31; }
+.shadow-card { background: linear-gradient(to top, white 60%, #181e31); }
+
 .stellar { background-color: #40B5A5; }
+.stellar-card { background: linear-gradient(to top, white 60%, #40B5A5); }
+
 .unknown { background-color: #68A090; }
+.unknown-card { background: linear-gradient(to top, white 60%, #68A090); }

@@ -45,6 +45,7 @@ export class PokedexComponent implements OnInit {
   imgStatus: any = [];
   allPokemon: any = [];
   pokemonList: any = [];
+  pokemonIDs: any = [];
   pokemonType: any = [];
   pokemonStats: any = [];
   pokemonImages: any = [];
@@ -136,12 +137,13 @@ export class PokedexComponent implements OnInit {
       this.pokemonType[data['name']] = res['types'];
       this.pokemonStats[data['name']] = res['stats'];
       this.pokemonImages[data['name']] = res['sprites']['front_default'];
+      this.pokemonIDs[data['name']] = res['id'];
     })
   }
 
   loadPokemonTypeList() {
     this.typeList.push('all');
-    this.api.call(`https://pokeapi.co/api/v2/type?limit=50&offset=0`, '', 'GET').then((response)=>{
+    this.api.call(`https://pokeapi.co/api/v2/type`, '', 'GET').then((response)=>{
       let res = response ? JSON.parse(response) : [];
       res['results'].map((data:any)=>{
         this.typeList.push(data['name']);
@@ -303,8 +305,10 @@ export class PokedexComponent implements OnInit {
         name: name,
         image: this.pokemonImages[name],
         stats: this.pokemonStats[name],
-        type: this.pokemonType[name]
+        type: this.pokemonType[name],
+        id: this.pokemonIDs[name]
       },
+      panelClass: 'no-padding'
     });
   }
 

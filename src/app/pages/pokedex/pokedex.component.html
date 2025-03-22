@@ -72,7 +72,7 @@
         <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 
         <div class="card-container bg-primary responsive-grid" *ngIf="pokemonList">
-            <mat-card *ngFor="let pl of pokemonList" class="{{ pokemonType[pl.name] ? (pokemonType[pl.name][0]['type']['name']+'-card') : '' }} pokemon-card" (click)="checkStats(pl.name)">
+            <mat-card *ngFor="let pl of pokemonList" [ngClass]="pokemonType[pl.name] ? (pokemonType[pl.name][0]['type']['name']+'-card') : ''" class="pokemon-card" (click)="checkStats(pl.name)">
                 <p class="text-center">{{ pl.name }}</p>
                 <br/>
                 <div class="w-full img-container">

@@ -83,7 +83,12 @@
                     </mat-card-content>
                 </mat-card>
             </div>
-    
+
+            <!-- no result -->
+            <div class="no-result" *ngIf="!pokemonList">
+                <h1>No pokemon found.</h1>
+            </div>
+
             <!-- paginator -->
             <mat-paginator #paginator [length]="totalPage" [pageSize]="limit" (page)="triggerPaginate($event)" aria-label="Select page"></mat-paginator>
 

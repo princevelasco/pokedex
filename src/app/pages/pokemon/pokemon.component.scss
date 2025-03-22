@@ -24,7 +24,7 @@ img { height: 160px; image-rendering: pixelated; }
 
 .search-button { box-shadow: none; }
 .search-icon:hover {
-    color: #DB3232;
+    color: #DF4D4D;
 }
 .search-container { 
     padding: 0 20px 0 20px;
@@ -35,7 +35,7 @@ img { height: 160px; image-rendering: pixelated; }
 
 .img-container {
     justify-content: center;
-    min-width: calc(var(--width, 100vh)/9);
+    min-width: calc(var(--width, 100vh)/7);
     display: flex;
     min-height: 160px;
 }
@@ -43,7 +43,7 @@ img { height: 160px; image-rendering: pixelated; }
 .responsive-grid {
     display: grid;
     // display: flex;
-    grid-template-columns: repeat(auto-fill, minmax(calc(var(--width, 100vh)/8), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(calc(var(--width, 100vh)/6), 1fr));
     gap:24px;
 }
 
@@ -54,3 +54,32 @@ img { height: 160px; image-rendering: pixelated; }
     margin-right: 20px;
 }
 .close-btn:hover { background: #DB3232 }
+
+.no-result {
+    padding: 30px;
+    background: white;
+    margin: 0;
+    text-align: center;
+    color: lightgray;
+}
+
+
+// sample device iphone 14
+@media screen and (max-width: 767px) and (min-width: 300px) {
+    .img-container {
+        min-width: calc(var(--width, 100vh)/9);
+    }
+    .responsive-grid {
+        grid-template-columns: repeat(auto-fill, minmax(calc(var(--width, 100vh)/8), 1fr));
+    }
+}
+
+// sample device samsung A24
+@media screen and (max-width: 300px) {
+    .img-container {
+        min-width: calc(var(--width, 100vh)/9);
+    }
+    .responsive-grid {
+        grid-template-columns: repeat(auto-fill, minmax(calc(var(--width, 100vh)/8), 1fr));
+    }
+}

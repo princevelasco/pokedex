@@ -221,6 +221,7 @@ export class PokedexComponent implements OnInit {
         // check if pokemon exist
         if( jsonResultClean['pokemon'] ) {
           this.selectedType = ''; // clear type dropdown, this can be used to view again all the pokemons
+          this.paginator.firstPage(); // reset paginator
           this.currentPage = 0; // reset current page
           let list: any = []; // used to store pokemon from json result
           let newPokemonList: any = []; // this will be the final result

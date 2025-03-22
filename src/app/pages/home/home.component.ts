@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
@@ -13,7 +13,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         animate('2s', style({ width: '100%' })),
       ]),
     ]),
-
     trigger('showText', [
       state('show', style({
         "margin-left": 0,
@@ -23,7 +22,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         animate('1s')
       ]),
     ]),
-
     trigger('showPokemon', [
       state('show', style({
         opacity: 1
@@ -47,7 +45,9 @@ export class HomeComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    localStorage.removeItem('accessToken');
+  }
 
   animationDone(event:any, type: any) {
     switch (type) {
@@ -60,8 +60,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  openPokedex() {
-    this.router.navigate(['/pokedex']);
+  openLogin() {
+    this.router.navigate(['/login']);
   }
 
 }

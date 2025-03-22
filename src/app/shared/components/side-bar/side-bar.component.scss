@@ -1,0 +1,66 @@
+.sidenav {
+    padding: 20px;
+    min-width: 200px;
+}
+
+.menu-item {
+    color: #859398;
+    cursor: pointer;
+    user-select: none;
+}
+
+.active { color: #283048; }
+.menu-item:hover {
+    color: #283048;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.brand-small { 
+    text-align: center;
+    display: none; 
+}
+.navbar-brand-box {
+    min-height: 64px;
+    h1 {
+        font-weight: 600;
+    }
+}
+
+.material-icons {
+    margin-right:5px
+}
+
+// sample device iphone 14
+@media screen and (max-width: 767px) and (min-width: 300px) {
+    .brand { display: none; }
+    .brand-small { display: block; font-size: 40px; }
+    .sidenav {
+        min-width: 80px;
+        max-width: 80px;
+    }
+    .tab-text { display: none; }
+    .material-icons {
+        transform: scale(1.5);
+        margin-left: 8px;
+    }
+}
+
+// sample device samsung A24
+@media screen and (max-width: 300px) {
+    .brand { display: none; }
+    .brand-small { display: block; font-size: 30px; }
+    .sidenav {
+        min-width: 50px;
+        max-width: 50px;
+        padding: 10px;
+    }
+    .tab-text { display: none; }
+    .material-icons {
+        transform: scale(1);
+        margin-left: 5px;
+    }
+}

@@ -1,7 +1,7 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/core/services/api.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ApiService } from 'src/app/services/api.service';
 
 export interface pokemonData {
   stats: any;
@@ -12,9 +12,9 @@ export interface pokemonData {
 }
 
 @Component({
-  selector: 'app-pokemon-stats',
-  templateUrl: './pokemon-stats.component.html',
-  styleUrls: ['./pokemon-stats.component.scss'],
+  selector: 'app-stats',
+  templateUrl: './stats.component.html',
+  styleUrls: ['./stats.component.scss'],
   animations: [
     trigger('flipState', [
       state('front', style({
@@ -28,7 +28,7 @@ export interface pokemonData {
     ])
   ]
 })
-export class PokemonStatsComponent implements OnInit {
+export class StatsComponent implements OnInit {
   flip: string = 'back';
   description : any = 'Loading...';
 

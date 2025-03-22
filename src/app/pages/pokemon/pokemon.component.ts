@@ -1,20 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
 import { MatDialog } from '@angular/material/dialog';
-import { PokemonStatsComponent } from 'src/app/components/pokemon-stats/pokemon-stats.component';
-import { MatPaginator } from '@angular/material/paginator';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { ApiService } from 'src/app/core/services/api.service';
+import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatPaginator } from '@angular/material/paginator';
+import { StatsComponent } from './components/stats/stats.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 import Fuse from 'fuse.js';
 import OpenAI from "openai";
-import { environment } from 'src/environments/environment';
+
 
 @Component({
-  selector: 'app-pokedex',
-  templateUrl: './pokedex.component.html',
-  styleUrls: ['./pokedex.component.scss'],
+  selector: 'app-pokemon',
+  templateUrl: './pokemon.component.html',
+  styleUrls: ['./pokemon.component.scss'],
   animations: [
     trigger('showImage', [
       state('open', style({
@@ -29,16 +30,9 @@ import { environment } from 'src/environments/environment';
         animate('1s')
       ]),
     ]),
-    // trigger('fadeInOut', [
-    //   transition(':enter', [
-    //     style({ width: 0, opacity: 0 }),
-    //     animate('2s', style({ width: '100%', opacity: 1 })),
-    //   ]),
-    // ]),
   ]
 })
-
-export class PokedexComponent implements OnInit {
+export class PokemonComponent implements OnInit {
   @ViewChild('paginator') paginator:any = MatPaginator;
 
   typeList: any = [];
@@ -301,7 +295,7 @@ export class PokedexComponent implements OnInit {
   }
 
   checkStats( name:any ) {
-    this.dialog.open(PokemonStatsComponent, {
+    this.dialog.open(StatsComponent, {
       data: {
         name: name,
         image: this.pokemonImages[name],
@@ -328,5 +322,4 @@ export class PokedexComponent implements OnInit {
   closePokedex() {
     this.router.navigate(['']);
   }
-
 }

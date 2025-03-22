@@ -8,21 +8,12 @@ img { height: 160px; image-rendering: pixelated; }
 .mt-20px { margin-top: 20px; }
 .mt-10px { margin-top: 10px; }
 
+.no-br { border-radius: 0; }
 .no-bs { box-shadow: none; }
 .btn-type { width: 100%; color: white; }
 .text-center { text-align: center; }
 .text-white { color: white; }
 
-.loader {
-    width: 500px;
-    height: 500px;
-    margin: 0;
-}
-.loader-container {
-    justify-content: center;
-    display: flex;
-    text-align: center;
-}
 .card-container { 
     padding: 24px;
     justify-content: center;
@@ -44,15 +35,15 @@ img { height: 160px; image-rendering: pixelated; }
 
 .img-container {
     justify-content: center;
-    min-width: calc(var(--width, 100vh)/7);
+    min-width: calc(var(--width, 100vh)/9);
     display: flex;
     min-height: 160px;
 }
 
 .responsive-grid {
-    // display: grid;
-    display: flex;
-    grid-template-columns: repeat(auto-fill, minmax(calc(var(--width, 100vh)/7), 1fr));
+    display: grid;
+    // display: flex;
+    grid-template-columns: repeat(auto-fill, minmax(calc(var(--width, 100vh)/8), 1fr));
     gap:24px;
 }
 

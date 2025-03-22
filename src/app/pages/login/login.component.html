@@ -1,0 +1,45 @@
+<img src="assets/pokeball2.png" class="pokeball" >
+
+<app-loader *ngIf="loading"></app-loader>
+
+<div class="container" *ngIf="!loading">
+    <mat-card style="width: 500px;">
+    
+        <mat-card-header class="bg-primary">
+            <div class="w-full pt-20px">
+                <mat-card-title class="text-white">Welcome,</mat-card-title>
+                <mat-card-subtitle class="text-white">Are you Aldon Prince Velasco?</mat-card-subtitle>
+            </div>
+            <div class="w-full">
+                <button class="fr close-btn" type="button" mat-raised-button (click)="backToHomePage()">Back</button>
+            </div>
+        </mat-card-header>
+    
+        <mat-card-content>
+            <form [formGroup]="form" (ngSubmit)="submit()">
+                <div class="fields">
+                    <mat-form-field class="w-full mb-10px" appearance="outline">
+                        <mat-label>Username</mat-label>
+                        <input type="text" matInput placeholder="Username" formControlName="username">
+                        <mat-error *ngIf="form.controls['username'].errors">
+                            <p *ngIf="form.controls['username'].hasError('required')">You must enter a value</p>
+                            <p *ngIf="form.controls['username'].hasError('email')">Invalid Username</p>
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="w-full" appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input [type]="passwordHide ? 'password' : 'text'" matInput placeholder="Password" formControlName="password">
+                        <button type="button" mat-icon-button matSuffix (click)="passwordHide = !passwordHide" [attr.aria-pressed]="passwordHide">
+                            <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="form.controls['password'].errors">
+                            <p>You must enter a value</p>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <button class="fr login-btn" type="button" mat-raised-button (click)="submit()" [disabled]="form.invalid">Login</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -1,0 +1,30 @@
+
+<mat-drawer-container class="container" autosize>
+    <app-nav-bar (toggleSide)="toggleSide(drawer)"></app-nav-bar>
+    
+    <mat-drawer #drawer class="sidenav" mode="side"> <!-- opened="true" -->
+        <div class="navbar-brand-box">
+            <h1 class="brand">Pokedex</h1>
+            <h1 class="brand-small">P</h1>
+            <mat-divider></mat-divider>
+        </div>
+        <div class="menu">
+            <mat-list role="list">
+                <mat-list-item role="listitem" class="menu-item" [routerLink]="'/pokemon'" routerLinkActive="active">
+                    <i class="material-icons">catching_pokemon</i>
+                    <span class="tab-text"> Pokemon</span>
+                </mat-list-item>
+                <mat-list-item role="listitem" class="menu-item">
+                    <i class="material-icons">
+                        supervised_user_circle
+                    </i>
+                    <span class="tab-text"> Profile</span>
+                </mat-list-item>
+            </mat-list>
+        </div>
+    </mat-drawer>
+  
+    <div class="sidenav-content">
+        <ng-content></ng-content>
+    </div>
+</mat-drawer-container>

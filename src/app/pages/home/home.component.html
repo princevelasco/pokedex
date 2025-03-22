@@ -11,7 +11,7 @@
         <div class="trainer-container" [@showText]="show['text'] ? 'show' : 'none'" (@showText.done)="animationDone($event, 'text')">
           <h1 class="author">Aldon Prince S. Velasco</h1>
           <h2 class="pokedex">Pokemon Trainer</h2> 
-          <button type="button" (click)="openPokedex()" mat-raised-button>Open Pokedex</button>
+          <button class="btn" type="button" (click)="openLogin()" mat-raised-button>Private Pokedex</button>
         </div>
         <div class="starting-pokemon-container">
           <img class="starting-pokemon" src="../assets/starting-pokemon.png" style="opacity:0;" [@showPokemon]="show['image'] ? 'show' : 'none'">

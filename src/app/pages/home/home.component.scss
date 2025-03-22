@@ -1,6 +1,6 @@
 .pl-5p { padding: 5%; }
-.author { font-size: 40px; }
 .w-full { width: 100% !important; }
+.btn:hover{ background: #859398;}
 
 .center-line {
     padding: 40px;
@@ -10,6 +10,10 @@
     bottom:0;
     position:absolute;
 }
+
+.author { font-size: 40px; user-select: none; }
+.view-dashboard { margin-right:5px }
+
 .trainer-container {
     width :65%;
     float:left;
@@ -37,6 +41,11 @@
 
 // sample device iphone 14
 @media screen and (max-width: 767px) and (min-width: 300px) {
+    .trainer-container {
+        width: 100%;
+    }
+    .starting-pokemon-container { display: none; }
+
     .center-line {
         padding: 30px;
     }
@@ -46,12 +55,20 @@
         margin-top: 0;
     }
     .author {
-        font-size: 30px;
+        font-size: 30px; // 20px
+        margin: 0;
     }
+    .pokedex { font-size: 12px; }
+    // .btn { font-size: 10px }
 }
 
 // sample device samsung A24
 @media screen and (max-width: 300px) {
+    .trainer-container {
+        width: 100%;
+    }
+    .starting-pokemon-container { display: none; }
+
     .center-line {
         padding: 20px;
     }
@@ -61,9 +78,13 @@
         margin-top: 30px;
     }
     .author {
-        font-size: 20px;
+        font-size: 20px;// 15px;
+        margin: 0;
     }
-    .pokedex {
-        font-size: 15px;
+    .pokedex { font-size: 12px; }
+    .btn { 
+        font-size: 10px;
+        width: 40%;
+        padding: 0;
     }
 }

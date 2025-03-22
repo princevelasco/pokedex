@@ -23,6 +23,9 @@ body {
 .bg-secondary {
     background: $secondary;
 }
+.text-white {
+    color: white;
+}
 
 .mat-progress-spinner circle, .mat-spinner circle {
     stroke: $primary;
@@ -35,6 +38,12 @@ body {
     mat-dialog-container {
         padding: 0;
     }
+}
+.mat-drawer-content {
+    background: $secondary;
+}
+.mat-list-item-content {
+    padding: 0 !important;
 }
 
 .all { background-color: $primary; }

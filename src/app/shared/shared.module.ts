@@ -8,8 +8,9 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { RouterModule } from '@angular/router';
+import { PortalModule } from '@angular/cdk/portal';
 
-const MODULES = [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule, OverlayModule, RouterModule]
+const MODULES = [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule, OverlayModule, RouterModule, PortalModule]
 
 @NgModule({
   declarations: [ SideBarComponent, NavBarComponent, LoaderComponent ],

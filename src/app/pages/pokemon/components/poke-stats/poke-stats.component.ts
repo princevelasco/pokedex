@@ -12,9 +12,9 @@ export interface pokemonData {
 }
 
 @Component({
-  selector: 'app-stats',
-  templateUrl: './stats.component.html',
-  styleUrls: ['./stats.component.scss'],
+  selector: 'app-poke-stats',
+  templateUrl: './poke-stats.component.html',
+  styleUrls: ['./poke-stats.component.scss'],
   animations: [
     trigger('flipState', [
       state('front', style({
@@ -28,7 +28,7 @@ export interface pokemonData {
     ])
   ]
 })
-export class StatsComponent implements OnInit {
+export class PokeStatsComponent implements OnInit {
   flip: string = 'back';
   description : any = 'Loading...';
 

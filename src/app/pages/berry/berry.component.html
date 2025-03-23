@@ -16,7 +16,7 @@
             <div style="padding: 20px" class="bg-white">
                 <cdk-virtual-scroll-viewport itemSize="50" class="berry-container bg-white">
                     <mat-grid-list [cols]="cols" rowHeight="150px" [gutterSize]="'20px'">
-                        <mat-grid-tile [colspan]="1" [rowspan]="1" *cdkVirtualFor="let b of berryList">
+                        <mat-grid-tile [colspan]="1" [rowspan]="1" *cdkVirtualFor="let b of berryList" (click)="moreDetails(b)">
                             <div class="w-full berry-card bg-secondary">
                                 <h2>{{ b.name }}</h2>
                                 <p>{{ b.effects }}</p>
@@ -31,3 +31,7 @@
         </mat-card>
     </div>
 </app-side-bar>
+
+<ng-template cdkPortal>
+    <app-berry-detail class="w-full" [details]="details"></app-berry-detail>
+</ng-template>

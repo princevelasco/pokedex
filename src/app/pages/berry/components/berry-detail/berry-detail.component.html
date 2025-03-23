@@ -1,0 +1,17 @@
+<mat-card class="container bg-white ">
+    <mat-card-header class="bg-primary">
+        <div class="w-full pt-20px">
+            <mat-card-title class="text-white">{{ details.name }}</mat-card-title>
+            <mat-card-subtitle class="text-white">{{ details.cost | currency }}</mat-card-subtitle>
+        </div>
+        <div class="w-full sprite-container">
+            <img [src]="details.sprite" class="sprite">
+        </div>
+    </mat-card-header>
+
+    <mat-card-content class="p-20px">
+        <span>{{ details.shorts }}</span>
+        <br><br>
+        <span>{{ details.flavor }}</span>
+    </mat-card-content>
+</mat-card>

@@ -1,7 +1,9 @@
 import { DataSource, CollectionViewer } from '@angular/cdk/collections';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Subscription, Observable } from 'rxjs';
+import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
+import { CdkPortal } from '@angular/cdk/portal';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BehaviorSubject, Subscription, Observable, Subject, takeUntil } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 
 @Component({
@@ -10,17 +12,22 @@ import { ApiService } from 'src/app/core/services/api.service';
   styleUrls: ['./berry.component.scss']
 })
 export class BerryComponent implements OnInit {
+  @ViewChild(CdkPortal) portal!: CdkPortal;
+
   cols: any = 3;
   berryList: any;
   breakpointSub: any;
-
+  details: any = [];
   firstLoad: boolean = true;
+
+  unsubscribe = new Subject<void>();
 
   constructor(
     private api: ApiService,
-    public breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private overlay: Overlay
   ) { 
-    this.breakpointSub = this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large]).subscribe(()=>{
+    this.breakpointSub = this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large]).pipe(takeUntil(this.unsubscribe)).subscribe(()=>{
       if( this.breakpointObserver.isMatched(Breakpoints.Small) ) {
         this.cols = 1;
       }
@@ -35,15 +42,23 @@ export class BerryComponent implements OnInit {
 
   ngOnInit(): void {
     this.berryList = new BerrySource(this.api);
-    console.log(this.berryList, this.berryList['loading'])
     setTimeout(() => {
       this.firstLoad = false;
     }, 2000);
   }
 
-  ngOnDestroy(){
-    this.breakpointSub.unsubscribe();
+  moreDetails(data:any) {
+    const config = new OverlayConfig({
+      positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
+      width: '60%',
+      hasBackdrop: true
+    })
+    this.details = data;
+    const overlayRef = this.overlay.create(config);
+    overlayRef.attach(this.portal);
+    overlayRef.backdropClick().subscribe(()=> overlayRef.detach())
   }
+
 }
 
 export class BerrySource extends DataSource<string | undefined> {
@@ -101,7 +116,7 @@ export class BerrySource extends DataSource<string | undefined> {
 
   loadBerry() {
     this.loading = true;
-    this.api.call( (this.nextURL ? this.nextURL : `https://pokeapi.co/api/v2/berry?limit=10&offset=0`), "", "GET" ).then((response)=>{
+    this.api.call( (this.nextURL ? this.nextURL : `https://pokeapi.co/api/v2/berry?limit=12&offset=0`), "", "GET" ).then((response)=>{
       let res = response ? JSON.parse(response) : [];
       this.nextURL = res['next'];
       this.totalBerry = res['count'];
@@ -125,7 +140,14 @@ export class BerrySource extends DataSource<string | undefined> {
   getBerryDetail(url:any) {
     this.api.call( url, "", "GET" ).then((response)=>{
       let res = response ? JSON.parse(response) : [];
-      this.berryList.push({ name: res['name'], effects: res['effect_entries']['0']['effect'], sprite: res['sprites']['default'] });
+      this.berryList.push({ 
+        name: res['name'], 
+        effects: res['effect_entries']['0']['effect'], 
+        sprite: res['sprites']['default'],
+        shorts: res['effect_entries']['0']['short_effect'],
+        flavor: res['flavor_text_entries']['0']['text'],
+        cost: res['cost']
+      });
     }).catch((error)=>{
       console.log(error)
     }).finally(()=>{

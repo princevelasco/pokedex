@@ -4,13 +4,14 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
-import { StatsComponent } from './components/stats/stats.component';
+import { PokeStatsComponent } from './components/poke-stats/poke-stats.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 import Fuse from 'fuse.js';
 import OpenAI from "openai";
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -62,7 +63,8 @@ export class PokemonComponent implements OnInit {
   firstLoad: boolean = true;
   loading: boolean = false;
   isMobile: boolean = false;
-  breakpointSub: any;
+  
+  unsubscribe = new Subject<void>();
 
   constructor( 
     private router: Router,
@@ -71,7 +73,7 @@ export class PokemonComponent implements OnInit {
     public dialog: MatDialog,
     public breakpointObserver: BreakpointObserver
    ) { 
-    this.breakpointSub = this.breakpointObserver.observe('(max-width: 767px)').subscribe(result=>{
+    this.breakpointObserver.observe('(max-width: 767px)').pipe(takeUntil(this.unsubscribe)).subscribe(result=>{
       this.isMobile = result.breakpoints['(max-width: 767px)'];
     });
    }
@@ -79,10 +81,6 @@ export class PokemonComponent implements OnInit {
   ngOnInit(): void {
     this.loadAllPokemons();
     this.loadPokemonTypeList();
-  }
-
-  ngOnDestroy(){
-    this.breakpointSub.unsubscribe();
   }
 
   loadAllPokemons() {
@@ -307,7 +305,7 @@ export class PokemonComponent implements OnInit {
   }
 
   checkStats( name:any ) {
-    this.dialog.open(StatsComponent, {
+    this.dialog.open(PokeStatsComponent, {
       data: {
         name: name,
         image: this.pokemonImages[name],

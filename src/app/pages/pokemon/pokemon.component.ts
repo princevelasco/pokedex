@@ -10,6 +10,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 
 import Fuse from 'fuse.js';
 import OpenAI from "openai";
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 
 @Component({
@@ -60,17 +61,28 @@ export class PokemonComponent implements OnInit {
 
   firstLoad: boolean = true;
   loading: boolean = false;
+  isMobile: boolean = false;
+  breakpointSub: any;
 
   constructor( 
     private router: Router,
     private api: ApiService,
     private _snackBar: MatSnackBar,
-    public dialog: MatDialog
-   ) { }
+    public dialog: MatDialog,
+    public breakpointObserver: BreakpointObserver
+   ) { 
+    this.breakpointSub = this.breakpointObserver.observe('(max-width: 767px)').subscribe(result=>{
+      this.isMobile = result.breakpoints['(max-width: 767px)'];
+    });
+   }
 
   ngOnInit(): void {
     this.loadAllPokemons();
     this.loadPokemonTypeList();
+  }
+
+  ngOnDestroy(){
+    this.breakpointSub.unsubscribe();
   }
 
   loadAllPokemons() {

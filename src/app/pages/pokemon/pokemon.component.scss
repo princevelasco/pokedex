@@ -73,9 +73,9 @@ img { height: 160px; image-rendering: pixelated; }
 
 @media screen and (max-width: 300px) {
     .img-container {
-        min-width: calc(var(--width, 100vh)/9);
+        min-width: calc(var(--width, 100vh)/5);
     }
     .responsive-grid {
-        grid-template-columns: repeat(auto-fill, minmax(calc(var(--width, 100vh)/8), 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(calc(var(--width, 100vh)/5), 1fr));
     }
 }

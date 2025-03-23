@@ -19,7 +19,7 @@
             <div class="search-container">
                 <mat-tab-group>
                     <mat-tab label="Basic Search">
-                        <mat-grid-list class="mt-10px" [cols]="4" rowHeight='80px' [gutterSize]="'20px'">
+                        <mat-grid-list class="mt-10px" [cols]="(isMobile ? 2 : 4)" rowHeight='80px' [gutterSize]="'20px'">
                             <mat-grid-tile
                                 [colspan]="1"
                                 [rowspan]="1">
@@ -33,7 +33,7 @@
                                 </div>
                             </mat-grid-tile>
                             <mat-grid-tile
-                                [colspan]="3"
+                                [colspan]="(isMobile ? 1 : 3)"
                                 [rowspan]="1">
                                 <div class="w-full">
                                     <mat-form-field appearance="outline" class="w-full">

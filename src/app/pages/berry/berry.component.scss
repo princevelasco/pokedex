@@ -2,16 +2,14 @@
 .no-bs { box-shadow: none; }
 .pt-20px { padding-top: 20px }
 .mt-10px { margin-top: 10px; }
-.berry-container {
-    padding: 50px;
-    height: 70vh;
-    max-height: 70vh;
-    overflow: auto;
-}
+.berry-container { height: 70vh; }
 .berry-card {
+    user-select: none;
+    cursor: pointer;
     border: 1px solid black;
     padding:10px;
     max-height: 120px;
     min-height: 120px;
     overflow: auto;
 }
+.berry-card:hover { color: white }

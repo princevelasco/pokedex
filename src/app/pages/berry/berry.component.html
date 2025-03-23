@@ -7,21 +7,25 @@
             <!-- header section -->
             <mat-card-header class="bg-primary">
                 <div class="w-full pt-20px">
-                    <mat-card-title class="text-white">Berry</mat-card-title>
+                    <mat-card-title class="text-white">Berry Wiki</mat-card-title>
                     <mat-card-subtitle class="text-white">Item</mat-card-subtitle>
                 </div>
             </mat-card-header>
 
-            <!-- pokemon display -->
-            <div class="berry-container bg-white">
-                <mat-grid-list [cols]="cols[screenSize]" rowHeight="150px" [gutterSize]="'20px'">
-                    <mat-grid-tile [colspan]="1" [rowspan]="1" *ngFor="let b of berryList">
-                        <div class="w-full berry-card bg-secondary">
-                            <h2>{{ b.name }}</h2>
-                            <p>{{ b.effects }}</p>
-                        </div>
-                    </mat-grid-tile>
-                </mat-grid-list>
+            <!-- berry display -->
+            <div style="padding: 20px" class="bg-white">
+                <cdk-virtual-scroll-viewport itemSize="50" class="berry-container bg-white">
+                    <mat-grid-list [cols]="cols" rowHeight="150px" [gutterSize]="'20px'">
+                        <mat-grid-tile [colspan]="1" [rowspan]="1" *cdkVirtualFor="let b of berryList">
+                            <div class="w-full berry-card bg-secondary">
+                                <h2>{{ b.name }}</h2>
+                                <p>{{ b.effects }}</p>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </cdk-virtual-scroll-viewport>
+
+                <mat-progress-bar mode="indeterminate" *ngIf="berryList['loading']" style="padding-top: 10px;"></mat-progress-bar>
             </div>
 
         </mat-card>

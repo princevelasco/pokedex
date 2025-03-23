@@ -1,7 +1,6 @@
 img { height: 160px; image-rendering: pixelated; }
 
 .fr { float: right; }
-.w-full { width: 100%; }
 .p-50px { padding: 50px; }
 .p-20px { padding: 50px; }
 .pt-20px { padding-top: 20px }
@@ -63,8 +62,6 @@ img { height: 160px; image-rendering: pixelated; }
     color: lightgray;
 }
 
-
-// sample device iphone 14
 @media screen and (max-width: 767px) and (min-width: 300px) {
     .img-container {
         min-width: calc(var(--width, 100vh)/9);
@@ -74,7 +71,6 @@ img { height: 160px; image-rendering: pixelated; }
     }
 }
 
-// sample device samsung A24
 @media screen and (max-width: 300px) {
     .img-container {
         min-width: calc(var(--width, 100vh)/9);

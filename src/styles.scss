@@ -23,9 +23,16 @@ body {
 .bg-secondary {
     background: $secondary;
 }
+.bg-white {
+    background: white;
+}
 .text-white {
     color: white;
 }
+.w-full { 
+    width: 100%; 
+}
+
 
 .mat-progress-spinner circle, .mat-spinner circle {
     stroke: $primary;

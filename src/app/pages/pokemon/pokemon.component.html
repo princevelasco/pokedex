@@ -68,14 +68,17 @@
             <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
     
             <!-- pokemon display -->
-            <div class="card-container bg-primary responsive-grid" *ngIf="pokemonList">
+            <div class="card-container bg-white responsive-grid" *ngIf="pokemonList">
                 <mat-card *ngFor="let pl of pokemonList" [ngClass]="pokemonType[pl.name] ? (pokemonType[pl.name][0]['type']['name']+'-card') : ''" class="pokemon-card" (click)="checkStats(pl.name)">
+                    <!-- pokemon name -->
                     <p class="text-center">{{ pl.name }}</p>
-                    <br/>
+                    <br/> <!-- space -->
+                    <!-- pokemon image -->
                     <div class="w-full img-container">
                         <img *ngIf="!imgStatus[pl.name]" mat-card-image src="assets/pokeball.png">
                         <img [@showImage]="!imgStatus[pl.name] ? 'closed' : 'open'" *ngIf="pokemonImages[pl.name]" [hidden]="!imgStatus[pl.name]" mat-card-image [src]="pokemonImages[pl.name]" (load)="imgLoaded(pl.name)">
                     </div>
+                    <!-- pokemon type -->
                     <mat-card-content style="min-height: 84px;">
                         <p  class="" *ngFor="let t of pokemonType[pl.name]">
                             <button class="btn-type {{ t.type['name'] }}" type="button" mat-raised-button>{{ t.type['name'] }}</button>

@@ -83,6 +83,7 @@ export class PokemonComponent implements OnInit {
     this.loadPokemonTypeList();
   }
 
+  // fetch all pokemons
   loadAllPokemons() {
     this.loading = true;
     this.api.call('https://pokeapi.co/api/v2/pokemon?limit=1500&offset=0', '', 'GET').then((response)=>{
@@ -107,6 +108,7 @@ export class PokemonComponent implements OnInit {
     })
   }
 
+  // fetch all pokemons by type
   loadAllPokemonsByType( type:any ) {
     this.loading = true;
     this.keyWord = ''; // clear value
@@ -134,6 +136,7 @@ export class PokemonComponent implements OnInit {
     })
   }
 
+  // load pokemon details
   loadPokemonDetails( data:any ) {
     if( this.pokemonImages[data['name']] ) return;
     this.api.call( data['url'], "", "GET" ).then((response:any)=>{
@@ -145,6 +148,7 @@ export class PokemonComponent implements OnInit {
     })
   }
 
+  // load list of pokemon types, used in select type dropdown
   loadPokemonTypeList() {
     this.typeList.push('all');
     this.api.call(`https://pokeapi.co/api/v2/type`, '', 'GET').then((response)=>{
@@ -157,6 +161,7 @@ export class PokemonComponent implements OnInit {
     })
   }
 
+  // basic pokemon search using fuse js
   searchPokemon() {
     const options = {
       useExtendedSearch: true,
@@ -193,6 +198,7 @@ export class PokemonComponent implements OnInit {
     this.pokemonList = this.allPokemon[this.currentPage];
   }
 
+  // OpenAI Advance search pokemon
   async advanceSearch() {
     if( this.loading || !this.advanceKeyWord ) return;
     this.loading = true;
@@ -276,6 +282,7 @@ export class PokemonComponent implements OnInit {
     });
   }
 
+  // load pokemon next or previous page
   triggerPaginate(e:any) {
     if( e.pageIndex > e.previousPageIndex ) {
       this.currentPage += 1;
@@ -288,6 +295,7 @@ export class PokemonComponent implements OnInit {
     });
   }
 
+  // filter pokemon by type
   filterByType(e:any){
     this.selectedType = e.value;
     this.paginator.firstPage();
@@ -304,6 +312,7 @@ export class PokemonComponent implements OnInit {
     }
   }
 
+  // open dialog pokemon stats
   checkStats( name:any ) {
     this.dialog.open(PokeStatsComponent, {
       data: {
@@ -317,6 +326,7 @@ export class PokemonComponent implements OnInit {
     });
   }
 
+  // open toast msg
   openSnackBar(msg:any) {
     this._snackBar.open(msg, 'close', {
       horizontalPosition: 'right',
@@ -325,10 +335,12 @@ export class PokemonComponent implements OnInit {
     });
   }
 
+  // used to identify if the pokemon image is already loaded
   imgLoaded( name:any ) {
     this.imgStatus[ name ] = true;
   }
 
+  // go back to home page
   closePokedex() {
     this.router.navigate(['']);
   }

@@ -7,12 +7,14 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   animations: [
+    // line animation
     trigger('slideLines', [
       transition(':enter', [
         style({ width: 0 }),
         animate('2s', style({ width: '100%' })),
       ]),
     ]),
+    // text animation
     trigger('showText', [
       state('show', style({
         "margin-left": 0,
@@ -22,6 +24,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         animate('1s')
       ]),
     ]),
+    // pokemon image animation
     trigger('showPokemon', [
       state('show', style({
         opacity: 1
@@ -49,6 +52,7 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('accessToken');
   }
 
+  // check if animation is already done
   animationDone(event:any, type: any) {
     switch (type) {
       case 'line':
@@ -60,6 +64,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  // go to login page
   openLogin() {
     this.router.navigate(['/login']);
   }

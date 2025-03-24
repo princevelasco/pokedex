@@ -30,10 +30,12 @@ export class LoginComponent implements OnInit {
     }, 1000);
   }
 
+  // go back to home page
   backToHomePage() {
     this.router.navigate(['']);
   }
   
+  // process login form
   submit() {
     if( this.form.invalid ) return;
     // fake authentication
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  // open toast msg
   openSnackBar(msg:any) {
     this._snackBar.open(msg, 'close', {
       horizontalPosition: 'right',

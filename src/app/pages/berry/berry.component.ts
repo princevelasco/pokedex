@@ -47,6 +47,7 @@ export class BerryComponent implements OnInit {
     }, 2000);
   }
 
+  // show overlay berry detail
   moreDetails(data:any) {
     const config = new OverlayConfig({
       positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
@@ -81,6 +82,7 @@ export class BerrySource extends DataSource<string | undefined> {
     this.loadBerry();
   }
 
+  // observer scroll
   connect(
     collectionViewer: CollectionViewer
   ): Observable<(string | undefined)[]> {
@@ -97,14 +99,17 @@ export class BerrySource extends DataSource<string | undefined> {
     return this.dataStream;
   }
 
+  // unsubscribe
   disconnect(): void {
     this.sub.unsubscribe();
   }
 
+  // get page index
   private pageIndex(index: number): number {
     return Math.floor(index / this.pageSize);
   }
 
+  // fecth new berry list
   private loadNewBerry(page: number) {
     if (this.pageLoaded.has(page)) {
       return;
@@ -113,6 +118,7 @@ export class BerrySource extends DataSource<string | undefined> {
     this.loadBerry();
   }
 
+  // fetch berry list
   loadBerry() {
     this.loading = true;
     this.api.call( (this.nextURL ? this.nextURL : `https://pokeapi.co/api/v2/berry?limit=12&offset=0`), "", "GET" ).then((response)=>{
@@ -129,6 +135,7 @@ export class BerrySource extends DataSource<string | undefined> {
     })
   }
 
+  // fetch berry url that will be used to get the berry detail
   getBerryDetailURL(url:any) {
     this.api.call( url, "", "GET" ).then((response)=>{
       let res = response ? JSON.parse(response) : [];
@@ -136,6 +143,7 @@ export class BerrySource extends DataSource<string | undefined> {
     })
   }
 
+  // fetch the berry details
   getBerryDetail(url:any) {
     this.api.call( url, "", "GET" ).then((response)=>{
       let res = response ? JSON.parse(response) : [];

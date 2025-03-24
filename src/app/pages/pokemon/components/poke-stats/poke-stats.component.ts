@@ -16,6 +16,7 @@ export interface pokemonData {
   templateUrl: './poke-stats.component.html',
   styleUrls: ['./poke-stats.component.scss'],
   animations: [
+    // flip pokemon image animation
     trigger('flipState', [
       state('front', style({
         transform: 'rotateY(179deg)'
@@ -41,6 +42,7 @@ export class PokeStatsComponent implements OnInit {
     this.loadPokemonDescription();
   }
 
+  // fetch pokemon description
   loadPokemonDescription() {
     this.api.call( `https://pokeapi.co/api/v2/pokemon-species/${this.data['id']}`, "", "GET" ).then((response)=>{
       let res = response ? JSON.parse(response) : [];
@@ -51,6 +53,7 @@ export class PokeStatsComponent implements OnInit {
     })
   }
 
+  // toggle the pokemon image flip
   toggleFlip() {
     this.flip = (this.flip == 'back') ? 'front' : 'back';
   }

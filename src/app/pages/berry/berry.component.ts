@@ -1,10 +1,10 @@
+import { CdkPortal } from '@angular/cdk/portal';
+import { ApiService } from 'src/app/core/services/api.service';
+import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataSource, CollectionViewer } from '@angular/cdk/collections';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
-import { CdkPortal } from '@angular/cdk/portal';
-import { Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Subscription, Observable, Subject, takeUntil } from 'rxjs';
-import { ApiService } from 'src/app/core/services/api.service';
 
 @Component({
   selector: 'app-berry',
@@ -58,7 +58,6 @@ export class BerryComponent implements OnInit {
     overlayRef.attach(this.portal);
     overlayRef.backdropClick().subscribe(()=> overlayRef.detach())
   }
-
 }
 
 export class BerrySource extends DataSource<string | undefined> {

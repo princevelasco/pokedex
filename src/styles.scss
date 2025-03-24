@@ -5,18 +5,11 @@
 $primary: #283048;
 $secondary: #859398;
 
-// $primary: #61045F;
-// $secondary: #AA076B;
-
 html { height: 100%; }
 body { 
     height: 100%;
     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
     background: $secondary;
-    // background-image: url('assets/bg.png');
-    // background-repeat: no-repeat;
-    // background-size: cover; // 100% 100%;
-    // background-position: center;
 }
 .bg-primary {
     background: $primary;
@@ -33,7 +26,6 @@ body {
 .w-full { 
     width: 100%; 
 }
-
 
 .mat-progress-spinner circle, .mat-spinner circle {
     stroke: $primary;

@@ -10,9 +10,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 
 import Fuse from 'fuse.js';
 import OpenAI from "openai";
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { Subject, takeUntil } from 'rxjs';
 
+import { Subject, takeUntil } from 'rxjs';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-pokemon',

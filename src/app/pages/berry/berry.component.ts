@@ -51,7 +51,7 @@ export class BerryComponent implements OnInit {
   moreDetails(data:any) {
     const config = new OverlayConfig({
       positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
-      width: '60%',
+      width: '30%',
       hasBackdrop: true
     })
     this.details = data;

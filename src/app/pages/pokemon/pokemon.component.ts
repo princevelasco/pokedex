@@ -302,7 +302,7 @@ export class PokemonComponent implements OnInit {
     this.currentPage = 0; // reset page
     if( e.value == 'all' ) {
       this.allPokemon = this.storedPokemon;
-      this.totalPage = this.storedPokemon.flat(1).length - 1;
+      this.totalPage = this.storedPokemon.flat(1).length;
       this.pokemonList = this.allPokemon[this.currentPage].map((data:any)=>{
         this.loadPokemonDetails( data );
         return data;
